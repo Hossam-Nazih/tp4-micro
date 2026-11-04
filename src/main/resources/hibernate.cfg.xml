@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- ===== Connexion au serveur MySQL de Workbench (localhost:3306, root sans mot de passe) =====
+             createDatabaseIfNotExist=true : la base parc_informatique_db est créée au premier lancement.
+             connectionTimeZone=LOCAL      : les dates sont enregistrées à l'heure de la machine.
+             Dans un fichier XML, le "&" des paramètres d'URL doit s'écrire "&amp;" (l'énoncé l'oublie). -->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/parc_informatique_db?useSSL=false&amp;createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true&amp;connectionTimeZone=LOCAL</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password"></property>
+        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+        <!-- update : crée les tables manquantes et ajoute les colonnes nouvelles, sans jamais rien supprimer.
+             Les données restent donc d'un lancement à l'autre (MainTest repart de zéro grâce à JeuDeDonnees) -->
+        <property name="hbm2ddl.auto">update</property>
+
+        <!-- Affiche chaque requête SQL générée à partir des sessions et du HQL -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+
+        <!-- Toutes les classes persistantes doivent être déclarées ici -->
+        <mapping class="entities.Salle"/>
+        <mapping class="entities.Machine"/>
+        <mapping class="entities.Fournisseur"/>
+        <mapping class="entities.Intervention"/>
+    </session-factory>
+</hibernate-configuration>
